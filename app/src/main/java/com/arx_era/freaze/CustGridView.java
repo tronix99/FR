@@ -12,54 +12,68 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustGridView extends BaseAdapter{
-    private Context mContext;
-    private final String[] web;
-    private final int[] Imageid;
+import java.util.ArrayList;
+import java.util.List;
 
-    public CustGridView(Context c, String[] web, int[] Imageid ) {
-        mContext = c;
-        this.Imageid = Imageid;
-        this.web = web;
+public class CustGridView extends BaseAdapter {
+    private final List<Item> mItems = new ArrayList<Item>();
+    private final LayoutInflater mInflater;
+
+    public CustGridView(Context context) {
+        mInflater = LayoutInflater.from(context);
+
+        mItems.add(new Item("Red",       R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Magenta",   R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Dark Gray", R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Gray",      R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Green",     R.drawable.ic_launcher_foreground));
     }
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
-        return web.length;
+        return mItems.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        // TODO Auto-generated method stub
-        return null;
+    public Item getItem(int i) {
+        return mItems.get(i);
     }
 
     @Override
-    public long getItemId(int position) {
-        // TODO Auto-generated method stub
-        return 0;
+    public long getItemId(int i) {
+        return mItems.get(i).drawableId;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        View v = view;
+        ImageView picture;
+        TextView name;
 
-        if (convertView == null) {
-
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.grid_content, null);
-            TextView textView = (TextView) grid.findViewById(R.id.grid_text);
-            ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
-            textView.setText(web[position]);
-            imageView.setImageResource(Imageid[position]);
-        } else {
-            grid = (View) convertView;
+        if (v == null) {
+            v = mInflater.inflate(R.layout.grid_content, viewGroup, false);
+            v.setTag(R.id.picture, v.findViewById(R.id.picture));
+            v.setTag(R.id.text, v.findViewById(R.id.text));
         }
 
-        return grid;
+        picture = (ImageView) v.getTag(R.id.picture);
+        name = (TextView) v.getTag(R.id.text);
+
+        Item item = getItem(i);
+
+        picture.setImageResource(item.drawableId);
+        name.setText(item.name);
+
+        return v;
+    }
+
+    private static class Item {
+        public final String name;
+        public final int drawableId;
+
+        Item(String name, int drawableId) {
+            this.name = name;
+            this.drawableId = drawableId;
+        }
     }
 }

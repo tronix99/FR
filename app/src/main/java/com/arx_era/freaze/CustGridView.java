@@ -22,11 +22,11 @@ public class CustGridView extends BaseAdapter {
     public CustGridView(Context context) {
         mInflater = LayoutInflater.from(context);
 
-        mItems.add(new Item("Red",       R.drawable.ic_launcher_foreground));
-        mItems.add(new Item("Magenta",   R.drawable.ic_launcher_foreground));
-        mItems.add(new Item("Dark Gray", R.drawable.ic_launcher_foreground));
-        mItems.add(new Item("Gray",      R.drawable.ic_launcher_foreground));
-        mItems.add(new Item("Green",     R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Ice Cream 1",  R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Ice Cream 2",  R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Ice Cream 3",  R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Ice Cream 4",  R.drawable.ic_launcher_foreground));
+        mItems.add(new Item("Ice Cream 5",  R.drawable.ic_launcher_foreground));
     }
 
     @Override
